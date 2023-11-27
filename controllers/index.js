@@ -1,7 +1,46 @@
 let personList = [];
-personList = JSON.parse(localStorage.getItem("person-list"))
+dataJSON = JSON.parse(localStorage.getItem("person-list"))
   ? JSON.parse(localStorage.getItem("person-list"))
   : [];
+personList = dataJSON.map((item) => {
+  switch (item.type) {
+    case "student":
+      return new student(
+        item.id,
+        item.hoTen,
+        item.diaChi,
+        item.email,
+        item.toan,
+        item.ly,
+        item.hoa,
+        item.type
+      );
+      break;
+    case "customer":
+      return new customer(
+        item.id,
+        item.hoTen,
+        item.diaChi,
+        item.email,
+        item.congTy,
+        item.triGiahoaDon,
+        item.danhGia,
+        item.type
+      );
+      BREAK;
+    case "employee":
+      return new employee(
+        item.id,
+        item.hoTen,
+        item.diaChi,
+        item.email,
+        item.soNgaylam,
+        item.luongTheongay,
+        item.type
+      );
+      break;
+  }
+});
 console.log(personList);
 renderPersonList(personList);
 function showInputForm() {
@@ -113,7 +152,9 @@ function renderPersonList(list) {
       <div class="card m-2" style="width: 18rem;">
   <div class="card-header text-success">
    <p class="text-succes">Student</p>
-   <div><button class="btn btn-danger" onclick="deletePerson(${item.id})">Delete</button></div>
+   <div><button class="btn btn-danger" onclick="deletePerson(${
+     item.id
+   })">Delete</button></div>
    <div class="mt-2">     <button
    type="button"
    class="btn btn-primary mb-5"
@@ -131,7 +172,7 @@ function renderPersonList(list) {
     <li class="list-group-item">Toán${item.toan}</li>
     <li class="list-group-item">Lý:${item.ly}</li>
     <li class="list-group-item">Hoá:${item.hoa}</li>
-    <li class="list-group-item">Điểm trung bình:${item.tinhdiemTb}</li>
+    <li class="list-group-item">Điểm trung bình:${item.tinhdiemTb()}</li>
   </ul>
     </div>
       `;
@@ -154,12 +195,12 @@ function renderPersonList(list) {
     </button></div>
     </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">${item.hoTen}</li>
-        <li class="list-group-item">${item.email}</li>
-        <li class="list-group-item">${item.diaChi}</li>
-        <li class="list-group-item">${item.congTy}</li>
-        <li class="list-group-item">${item.triGiahoaDon}</li>
-        <li class="list-group-item">${item.danhGia}</li>
+        <li class="list-group-item">Họ tên:${item.hoTen}</li>
+        <li class="list-group-item">Email:${item.email}</li>
+        <li class="list-group-item">Địa chỉ:${item.diaChi}</li>
+        <li class="list-group-item">Công ty:${item.congTy}</li>
+        <li class="list-group-item">Trị giá hoá đơn:${item.triGiahoaDon}</li>
+        <li class="list-group-item">Đánh giá:${item.danhGia}</li>
       </ul>
         </div>`;
         break;
@@ -168,7 +209,9 @@ function renderPersonList(list) {
         <div class="card m-2" style="width: 18rem;">
         <div class="card-header ">
          <p class="text-primary">Employee</p>
-         <div><button class="btn btn-danger" onclick="deletePerson(${item.id})">Delete</button></div>
+         <div><button class="btn btn-danger" onclick="deletePerson(${
+           item.id
+         })">Delete</button></div>
          <div class="mt-2">     <button
          type="button"
          class="btn btn-primary mb-5"
@@ -180,12 +223,12 @@ function renderPersonList(list) {
        </button></div>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">${item.hoTen}</li>
-          <li class="list-group-item">${item.email}</li>
-          <li class="list-group-item">${item.diaChi}</li>
-          <li class="list-group-item">${item.soNgaylam}</li>
-          <li class="list-group-item">${item.luongTheongay}</li>
-          <li class="list-group-item">${item.tinhLuong}</li>
+          <li class="list-group-item">Họ tên:${item.hoTen}</li>
+          <li class="list-group-item">Email:${item.email}</li>
+          <li class="list-group-item">Địa chỉ:${item.diaChi}</li>
+          <li class="list-group-item">Số ngày làm:${item.soNgaylam}</li>
+          <li class="list-group-item">Lương theo ngày:${item.luongTheongay}</li>
+          <li class="list-group-item">Lương thưởng:${item.tinhLuong()}</li>
         </ul>
         </div>`;
         break;

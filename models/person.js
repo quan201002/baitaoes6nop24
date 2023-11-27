@@ -15,7 +15,7 @@ class student extends person {
     this.hoa = hoa;
     this.type = type;
   }
-  tinhdiemtb() {
+  tinhdiemTb() {
     return (this.toan * 1 + this.ly * 1 + this.hoa * 1) / 3;
   }
 }
